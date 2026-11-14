@@ -310,3 +310,23 @@ html { scroll-padding-top: 76px; }
   .mail code { flex: 1; min-width: 0; font-size: .85rem; }
   .site-footer > p:first-child { margin-right: 0; width: 100%; }
 }
+
+/* ===== V6: rendimiento (menos repintados y sin desenfoques costosos) ===== */
+*, *::before, *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+.site-header { background: color-mix(in srgb, var(--bg) 94%, transparent); }
+:root[data-theme] .project, :root[data-theme] .marquee, .repo a, .term { background: color-mix(in srgb, var(--panel) 94%, transparent); }
+.section.contact { background: color-mix(in srgb, var(--panel) 95%, transparent); }
+
+.aurora span { filter: none !important; animation: none !important; }
+.aurora span:nth-child(1), .aurora span:nth-child(3) { background: radial-gradient(circle closest-side, var(--accent), transparent) !important; }
+.aurora span:nth-child(2) { background: radial-gradient(circle closest-side, var(--mango), transparent) !important; }
+:root[data-theme="dark"] .aurora span { opacity: .2 !important; }
+
+.net { -webkit-mask: none; mask: none; opacity: .3; }
+.hero h1 { animation: none; }
+:root[data-theme] .project.featured { animation: none; }
+
+.floor::before { animation: floor-move 1.8s linear infinite; background-position: 0 0; will-change: transform; }
+@keyframes floor-move { from { transform: rotateX(74deg) translateY(0); } to { transform: rotateX(74deg) translateY(64px); } }
+@media (prefers-reduced-motion: reduce) { .floor::before { animation: none; } }
+.marquee-track { will-change: transform; }

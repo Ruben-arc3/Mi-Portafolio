@@ -116,35 +116,41 @@ if (!reduceMotion && "IntersectionObserver" in window) {
   });
 }
 
-// ===== Fondo: lluvia de código + foco que sigue al cursor =====
+// ===== Fondo: lluvia de código + foco que sigue al cursor (versión ligera) =====
 (() => {
+  const aurora = document.querySelector(".aurora");
+  let pending = 0;
   addEventListener("pointermove", (e) => {
-    root.style.setProperty("--cx", `${e.clientX}px`);
-    root.style.setProperty("--cy", `${e.clientY}px`);
+    if (pending) return;
+    pending = requestAnimationFrame(() => {
+      pending = 0;
+      aurora?.style.setProperty("--cx", `${e.clientX}px`);
+      aurora?.style.setProperty("--cy", `${e.clientY}px`);
+    });
   }, { passive: true });
   const cv = document.querySelector(".net");
   const ctx = cv?.getContext("2d");
-  if (!ctx || reduceMotion) { cv?.remove(); return; }
+  const weak = innerWidth < 760 || (navigator.hardwareConcurrency || 8) <= 4 || navigator.connection?.saveData;
+  if (!ctx || reduceMotion || weak) { cv?.remove(); return; }
   const chars = "01{}<>/=;$#*+()[]&|".split("");
-  let w, h, size, cols, last = 0;
+  const size = 20;
+  let w, h, cols, last = 0, accent = "", n = 0;
   const init = () => {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    w = cv.width = innerWidth * dpr; h = cv.height = innerHeight * dpr;
-    size = 18 * dpr;
-    cols = Array.from({ length: Math.ceil(w / size) }, () => ({ y: Math.random() * h, v: (.8 + Math.random() * 2.2) * dpr, row: -1 }));
+    w = cv.width = innerWidth; h = cv.height = innerHeight;
+    cols = Array.from({ length: Math.ceil(w / size) }, () => ({ y: Math.random() * h, v: .8 + Math.random() * 2, row: -1 }));
     ctx.font = `${size}px ui-monospace, Menlo, Consolas, monospace`;
   };
   const frame = (t) => {
     requestAnimationFrame(frame);
-    if (document.hidden || t - last < 33) return;
+    if (document.hidden || t - last < 45) return;
     last = t;
-    const accent = getComputedStyle(root).getPropertyValue("--accent").trim() || "#5ab0ff";
+    if (!accent || ++n % 120 === 0) accent = getComputedStyle(root).getPropertyValue("--accent").trim() || "#5ab0ff";
     ctx.globalCompositeOperation = "destination-out";
-    ctx.fillStyle = "rgba(0,0,0,.09)";
+    ctx.fillStyle = "rgba(0,0,0,.14)";
     ctx.fillRect(0, 0, w, h);
     ctx.globalCompositeOperation = "source-over";
     cols.forEach((c, i) => {
-      c.y += c.v;
+      c.y += c.v * 1.6;
       const row = Math.floor(c.y / size);
       if (row !== c.row) {
         c.row = row;
@@ -153,7 +159,7 @@ if (!reduceMotion && "IntersectionObserver" in window) {
         ctx.fillStyle = accent; ctx.globalAlpha = .7;
         ctx.fillText(chars[(Math.random() * chars.length) | 0], i * size, c.y - size);
       }
-      if (c.y > h + size * 8 && Math.random() > .97) { c.y = -size * Math.random() * 10; c.v = (.8 + Math.random() * 2.2) * (h / innerHeight > 1 ? 1.5 : 1); }
+      if (c.y > h + size * 8 && Math.random() > .97) { c.y = -size * Math.random() * 10; c.v = .8 + Math.random() * 2; }
     });
     ctx.globalAlpha = 1;
   };
