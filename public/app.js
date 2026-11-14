@@ -213,3 +213,168 @@ copyBtn?.addEventListener("click", async () => {
   };
   try { await navigator.clipboard.writeText(copyBtn.dataset.email); done(true); } catch { done(false); }
 });
+
+// ===== Galerías de capturas por proyecto =====
+(() => {
+  const galleries = [...document.querySelectorAll("[data-gallery]")];
+  if (!galleries.length) return;
+  const pad = (n) => String(n).padStart(2, "0");
+  const dialog = document.querySelector("#lightbox");
+  const lbImg = dialog?.querySelector("img");
+  const lbCaption = dialog?.querySelector(".lb-caption");
+  const lbCount = dialog?.querySelector(".lb-count");
+  const lbPrev = dialog?.querySelector(".lb-prev");
+  const lbNext = dialog?.querySelector(".lb-next");
+  let current = null;
+
+  const EASE = "cubic-bezier(.2,.7,.2,1)";
+  const pop = (el, text) => {
+    el.textContent = text;
+    if (!reduceMotion && el.animate) el.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 420, easing: EASE });
+  };
+  const paintLightbox = (dir = 0) => {
+    const s = current.slides[current.index];
+    lbImg.src = s.src; lbImg.alt = s.alt;
+    lbCaption.textContent = `${current.root.dataset.title} · ${s.text}`;
+    lbCount.textContent = `${pad(current.index + 1)} / ${pad(current.slides.length)}`;
+    lbPrev.hidden = lbNext.hidden = current.slides.length < 2;
+    if (!reduceMotion && lbImg.animate) {
+      lbImg.animate(
+        dir ? [{ opacity: 0, transform: `translateX(${dir * 60}px) scale(.97)` }, { opacity: 1, transform: "none" }]
+            : [{ opacity: 0, transform: "scale(.94)" }, { opacity: 1, transform: "none" }],
+        { duration: 460, easing: EASE });
+    }
+  };
+
+  const setup = (root) => {
+    const stage = root.querySelector(".g-stage");
+    const stageImg = stage.querySelector("img");
+    const caption = root.querySelector(".g-caption");
+    const count = root.querySelector(".g-count");
+    const strip = root.querySelector(".g-thumbs");
+    const buttons = [...strip.querySelectorAll("button")];
+    const slides = buttons.map((b) => {
+      const img = b.querySelector("img");
+      return { src: img.getAttribute("src"), alt: img.alt, text: b.dataset.caption || img.alt };
+    });
+    const g = { root, slides, index: 0 };
+
+    let cur = stageImg;
+    const slide = (s, dir) => {
+      stage.querySelectorAll("img.g-out").forEach((n) => n.remove());
+      const old = cur;
+      const next = document.createElement("img");
+      next.src = s.src; next.alt = s.alt;
+      cur = next;
+      stage.insertBefore(next, stage.querySelector(".g-expand"));
+      if (reduceMotion || !next.animate) { old.remove(); return; }
+      old.classList.add("g-out");
+      old.setAttribute("aria-hidden", "true");
+      const opts = { duration: 640, easing: EASE };
+      next.animate([
+        { transform: `translateX(${dir * 16}%) scale(1.1)`, opacity: 0, filter: "blur(8px)" },
+        { transform: "none", opacity: 1, filter: "blur(0)" },
+      ], { ...opts, fill: "backwards" });
+      old.animate([
+        { transform: "none", opacity: 1, filter: "blur(0)" },
+        { transform: `translateX(${-dir * 16}%) scale(.94)`, opacity: 0, filter: "blur(8px)" },
+      ], { ...opts, fill: "both" }).onfinish = () => old.remove();
+    };
+
+    g.show = (i, first = false, dir = 0) => {
+      const prev = g.index;
+      g.index = (i + slides.length) % slides.length;
+      const s = slides[g.index];
+      if (!dir) dir = g.index >= prev ? 1 : -1;
+      if (first) { stageImg.src = s.src; stageImg.alt = s.alt; caption.textContent = s.text; count.textContent = `${pad(1)} / ${pad(slides.length)}`; }
+      else if (g.index !== prev) {
+        slide(s, dir);
+        pop(caption, s.text);
+        pop(count, `${pad(g.index + 1)} / ${pad(slides.length)}`);
+      }
+      buttons.forEach((b, k) => {
+        if (k === g.index) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current");
+      });
+      const b = buttons[g.index];
+      strip.scrollTo({ left: b.offsetLeft - (strip.clientWidth - b.offsetWidth) / 2, behavior: reduceMotion ? "auto" : "smooth" });
+      if (current === g && dialog?.open) paintLightbox(dir);
+    };
+
+    buttons.forEach((b, k) => b.addEventListener("click", () => g.show(k)));
+    strip.addEventListener("keydown", (e) => {
+      const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      g.show(g.index + d, false, d);
+      buttons[g.index].focus();
+    });
+
+    // Deslizar en pantallas táctiles
+    let x0 = null, swiped = false;
+    stage.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; swiped = false; }, { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 45) { swiped = true; g.show(g.index + (dx < 0 ? 1 : -1), false, dx < 0 ? 1 : -1); }
+    });
+    stage.addEventListener("click", () => {
+      if (swiped) { swiped = false; return; }
+      if (typeof dialog?.showModal !== "function") return;
+      current = g;
+      paintLightbox(0);
+      dialog.showModal();
+    });
+
+    g.show(0, true);
+  };
+
+  galleries.forEach(setup);
+  if (!dialog) return;
+  const go = (d) => current?.show(current.index + d, false, d);
+  lbPrev.addEventListener("click", () => go(-1));
+  lbNext.addEventListener("click", () => go(1));
+  dialog.querySelector(".lb-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => { if (!e.target.closest("img, .lb-btn, figcaption")) dialog.close(); });
+  dialog.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") go(1);
+    else if (e.key === "ArrowLeft") go(-1);
+  });
+})();
+
+// ===== Selector de proyectos (pestañas) =====
+(() => {
+  const root = document.querySelector("[data-projects]");
+  if (!root) return;
+  const bar = root.querySelector(".pv-bar");
+  const strip = root.querySelector(".pv-tabs");
+  const tabs = [...root.querySelectorAll('[role="tab"]')];
+  const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")));
+  const count = root.querySelector(".pv-count");
+  const pad = (n) => String(n).padStart(2, "0");
+  let cur = 0;
+  const select = (i, focus = false) => {
+    cur = (i + tabs.length) % tabs.length;
+    tabs.forEach((t, k) => {
+      t.setAttribute("aria-selected", String(k === cur));
+      t.tabIndex = k === cur ? 0 : -1;
+      panels[k].hidden = k !== cur;
+    });
+    panels[cur].classList.add("in");
+    count.innerHTML = `<b>${pad(cur + 1)}</b> / ${pad(tabs.length)}`;
+    const t = tabs[cur];
+    strip.scrollTo({ left: t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2, behavior: reduceMotion ? "auto" : "smooth" });
+    if (focus) t.focus();
+  };
+  tabs.forEach((t, k) => t.addEventListener("click", () => select(k)));
+  strip.addEventListener("keydown", (e) => {
+    const map = { ArrowRight: cur + 1, ArrowLeft: cur - 1, Home: 0, End: tabs.length - 1 };
+    if (!(e.key in map)) return;
+    e.preventDefault();
+    select(map[e.key], true);
+  });
+  root.querySelector(".pv-prev").addEventListener("click", () => select(cur - 1));
+  root.querySelector(".pv-next").addEventListener("click", () => select(cur + 1));
+  bar.hidden = false;
+  select(0);
+})();

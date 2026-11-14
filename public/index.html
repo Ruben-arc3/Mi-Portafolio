@@ -75,16 +75,46 @@
         <h2 id="t-proyectos">Proyectos</h2>
         <p class="section-intro">Una selección corta: lo que está en uso y lo que muestra cómo trabajo.</p>
 
-        <article class="project featured">
-          <div class="project-head">
-            <p class="kind">Plataforma educativa · en línea</p>
-            <h3>Decido Cuidarme</h3>
+        <div class="pv" data-projects>
+          <div class="pv-bar" hidden>
+            <div class="pv-tabs" role="tablist" aria-label="Proyectos destacados">
+              <button class="pv-tab" role="tab" type="button" id="tab-decido" aria-controls="panel-decido" aria-selected="true">Decido Cuidarme</button>
+              <button class="pv-tab" role="tab" type="button" id="tab-voces" aria-controls="panel-voces" aria-selected="false" tabindex="-1">Voces en equipo</button>
+              <button class="pv-tab" role="tab" type="button" id="tab-preciojusto" aria-controls="panel-preciojusto" aria-selected="false" tabindex="-1">PrecioJusto</button>
+              <button class="pv-tab" role="tab" type="button" id="tab-agente" aria-controls="panel-agente" aria-selected="false" tabindex="-1">Agente LangChain + RAG</button>
+              <button class="pv-tab" role="tab" type="button" id="tab-raices" aria-controls="panel-raices" aria-selected="false" tabindex="-1">Raíces del Caribe</button>
+              <button class="pv-tab" role="tab" type="button" id="tab-procuraduria" aria-controls="panel-procuraduria" aria-selected="false" tabindex="-1">Procuraduría</button>
+            </div>
+            <div class="pv-nav">
+              <span class="pv-count" aria-hidden="true"><b>01</b> / 06</span>
+              <button class="icon-button pv-prev" type="button" aria-label="Proyecto anterior"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <button class="icon-button pv-next" type="button" aria-label="Proyecto siguiente"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
           </div>
-          <div class="project-body">
-            <p>Plataforma para acompañar campañas de prevención en colegios. Reúne recursos informativos, actividades participativas, juegos para el aula y espacios institucionales, y está pensada para que el contenido crezca junto con las necesidades de cada comunidad escolar.</p>
-            <ul class="tags" aria-label="Tecnologías">
-              <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Cloudflare Pages</li><li>Pages Functions</li><li>Firebase Authentication</li><li>Cloud Firestore</li>
+        <article class="project featured showcase" role="tabpanel" id="panel-decido" aria-labelledby="tab-decido">
+          <div class="project-head">
+            <p class="meta-row"><span class="badge">WEB</span><span class="mode">EN LÍNEA</span></p>
+            <h3>Decido Cuidarme</h3>
+            <p class="kind">Desarrollador web · plataforma educativa en línea</p>
+          </div>
+          <figure class="gallery" data-gallery data-title="Decido Cuidarme">
+            <button class="g-stage" type="button" aria-label="Ampliar imagen"><img src="assets/decido-cuidarme/01.webp" alt="Página de inicio de Decido Cuidarme con el titular «Cuidarnos también se aprende jugando»" /><span class="g-expand"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span></button>
+            <figcaption class="g-meta"><span class="g-caption" aria-live="polite">Portal de prevención: página de inicio</span><span class="g-count">01 / 03</span></figcaption>
+            <ul class="g-thumbs" aria-label="Capturas de Decido Cuidarme">
+              <li><button type="button" data-caption="Portal de prevención: página de inicio"><img src="assets/decido-cuidarme/01.webp" alt="Página de inicio de Decido Cuidarme con el titular «Cuidarnos también se aprende jugando»" loading="lazy" decoding="async" /></button></li>
+              <li><button type="button" data-caption="Campañas: decidir con información"><img src="assets/decido-cuidarme/02.webp" alt="Sección de campañas con la guía «Decidir con información» para estudiantes y docentes" loading="lazy" decoding="async" /></button></li>
+              <li><button type="button" data-caption="Colegios: orientación vocacional y simulacro ICFES"><img src="assets/decido-cuidarme/03.webp" alt="Sección de colegios con proyecto de vida, orientación, simulacro ICFES y retos interactivos" loading="lazy" decoding="async" /></button></li>
+              <!-- Para agregar otra imagen: copia una línea <li>…</li>, cambia src, alt y data-caption -->
             </ul>
+          </figure>
+          <div class="project-body">
+            <p class="pitch">Plataforma para acompañar campañas de prevención en colegios de Córdoba: reúne recursos informativos, actividades participativas, juegos para el aula y espacios institucionales, y crece junto con las necesidades de cada comunidad escolar.</p>
+            <ul class="points">
+              <li><strong>Campañas y guías</strong> para estudiantes y docentes, con videos educativos y actividades para trabajar en grupo.</li>
+              <li><strong>Orientación vocacional:</strong> proyecto de vida, catálogo de carreras e instituciones, simulacro ICFES y retos interactivos.</li>
+              <li>Publicada en <strong>Cloudflare Pages</strong> con Pages Functions, autenticación con <strong>Firebase</strong> y datos en Cloud Firestore; la mantengo y la mejoro según lo que piden los usuarios.</li>
+            </ul>
+            <p class="stackline"><span>Tecnologías</span>HTML · CSS · JavaScript · Cloudflare Pages · Firebase Authentication · Cloud Firestore</p>
             <p class="links">
               <a href="https://decido-cuidarme.pages.dev/" target="_blank" rel="noreferrer">Abrir la plataforma<span class="sr"> (se abre en otra pestaña)</span></a>
               <a href="https://github.com/Ruben-arc3/decido-cuidarme" target="_blank" rel="noreferrer">Ver código<span class="sr"> (se abre en otra pestaña)</span></a>
@@ -92,30 +122,141 @@
           </div>
         </article>
 
-        <div class="project-pair">
-          <article class="project">
+        <article class="project showcase" role="tabpanel" id="panel-voces" aria-labelledby="tab-voces">
+          <div class="project-head">
+            <p class="meta-row"><span class="badge">JUEGO</span><span class="mode">EN LÍNEA</span></p>
+            <h3>Voces en equipo</h3>
+            <p class="kind">Juego colaborativo de prevención</p>
+          </div>
+          <figure class="codecard">
+            <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>voces-en-equipo.flow</span></div>
+            <pre aria-label="Flujo del juego: los jugadores se unen a una sala, juegan en grupo y trabajan la prevención."><span class="c-acc">$</span> voces en equipo
+  ├─ sala ······· jugadores se unen
+  ├─ partida ···· se juega en grupo
+  └─ meta ······· prevención
+<span class="c-acc">$</span> <span class="c-caret">_</span></pre>
+          </figure>
+          <div class="project-body">
+            <p class="pitch">Juego colaborativo para trabajar la prevención en equipo: los participantes se reúnen en una sala y aprenden juntos mientras juegan.</p>
+            <ul class="points">
+              <li><strong>Propósito:</strong> llevar los mensajes de prevención a un formato lúdico y grupal, pensado para el aula y las campañas.</li>
+              <li><strong>Salas de juego:</strong> cada grupo entra a su sala y participa en la misma partida.</li>
+              <li>Publicado en <strong>Cloudflare Pages</strong>, para que se abra desde cualquier navegador sin instalar nada.</li>
+            </ul>
+            <!-- EDITA: confirma o completa las tecnologías (por ejemplo, la que usas para sincronizar a los jugadores en tiempo real) -->
+            <p class="stackline"><span>Tecnologías</span>JavaScript · Cloudflare Pages</p>
+            <p class="links"><a href="https://garlic-phone.pages.dev/" target="_blank" rel="noreferrer">Abrir el juego<span class="sr"> (se abre en otra pestaña)</span></a></p>
+          </div>
+        </article>
+
+        <article class="project showcase" role="tabpanel" id="panel-preciojusto" aria-labelledby="tab-preciojusto">
+          <div class="project-head">
+            <p class="meta-row"><span class="badge">WEB</span><span class="mode">EN LÍNEA</span></p>
+            <h3>PrecioJusto</h3>
+            <p class="kind">Aplicación web · comparador de precios</p>
+          </div>
+          <figure class="gallery" data-gallery data-title="PrecioJusto">
+            <button class="g-stage" type="button" aria-label="Ampliar imagen"><img src="assets/precio-justo/01.webp" alt="Inicio de PrecioJusto con buscador de productos y sección de ofertas" /><span class="g-expand"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span></button>
+            <figcaption class="g-meta"><span class="g-caption" aria-live="polite">Inicio: buscador y productos en oferta</span><span class="g-count">01 / 03</span></figcaption>
+            <ul class="g-thumbs" aria-label="Capturas de PrecioJusto">
+              <li><button type="button" data-caption="Inicio: buscador y productos en oferta"><img src="assets/precio-justo/01.webp" alt="Inicio de PrecioJusto con buscador de productos y sección de ofertas" loading="lazy" decoding="async" /></button></li>
+              <li><button type="button" data-caption="Catálogo con filtros y orden"><img src="assets/precio-justo/02.webp" alt="Catálogo de productos con filtros por tienda y opciones de orden" loading="lazy" decoding="async" /></button></li>
+              <li><button type="button" data-caption="Detalle: precio en cada tienda"><img src="assets/precio-justo/03.webp" alt="Detalle de un producto con el precio en cada tienda disponible" loading="lazy" decoding="async" /></button></li>
+              <!-- Para agregar otra imagen: copia una línea <li>…</li>, cambia src, alt y data-caption -->
+            </ul>
+          </figure>
+          <div class="project-body">
+            <p class="pitch">Comparador de precios de productos de supermercado: busca un producto y ve en qué tiendas está y a qué precio, para decidir dónde comprar.</p>
+            <ul class="points">
+              <li><strong>Catálogo</strong> con buscador, filtro por tienda y orden por precio o por nombre, más una sección de ofertas.</li>
+              <li><strong>Detalle de producto</strong> con el precio en cada tienda y enlace directo para comprar.</li>
+              <li><strong>Cuentas de usuario:</strong> quienes inician sesión pueden guardar favoritos y calificar productos.</li>
+            </ul>
+            <!-- EDITA: confirma que estas tecnologías son las que usaste -->
+            <p class="stackline"><span>Tecnologías</span>HTML · CSS · JavaScript · Bootstrap · PHP · MySQL</p>
+            <p class="links">
+              <a href="https://preciojusto.42web.io/" target="_blank" rel="noreferrer">Abrir la aplicación<span class="sr"> (se abre en otra pestaña)</span></a>
+              <!-- EDITA: si tienes el repositorio, agrega aquí: <a href="https://github.com/Ruben-arc3/…" target="_blank" rel="noreferrer">Ver código<span class="sr"> (se abre en otra pestaña)</span></a> -->
+            </p>
+          </div>
+        </article>
+
+          <article class="project showcase" role="tabpanel" id="panel-agente" aria-labelledby="tab-agente">
             <div class="project-head">
-              <p class="kind">IA aplicada</p>
+              <p class="meta-row"><span class="badge">IA</span><span class="mode">GITHUB</span></p>
               <h3>Agente LangChain + RAG</h3>
+              <p class="kind">IA aplicada · Python</p>
             </div>
+            <figure class="codecard">
+              <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>agente.flow</span></div>
+              <pre aria-label="Flujo del agente: la pregunta se resuelve con documentos PDF mediante RAG, con el clima de OpenWeatherMap y con búsquedas en Wikipedia."><span class="c-acc">$</span> pregunta
+  ├─ PDF ········ RAG
+  ├─ clima ····· OpenWeatherMap
+  └─ datos ····· Wikipedia
+<span class="c-acc">$</span> respuesta<span class="c-caret">_</span></pre>
+            </figure>
             <div class="project-body">
-              <p>Agente en Python que responde a partir de documentos PDF y combina esa consulta con herramientas externas: clima con OpenWeatherMap y búsquedas en Wikipedia.</p>
-              <ul class="tags" aria-label="Tecnologías"><li>Python</li><li>LangChain</li><li>RAG</li><li>OpenWeatherMap API</li></ul>
+              <p class="pitch">Agente en Python que responde a partir de documentos PDF y combina esa consulta con herramientas externas.</p>
+              <ul class="points">
+                <li><strong>RAG sobre PDF:</strong> las respuestas salen del contenido de los documentos.</li>
+                <li><strong>Herramientas externas:</strong> el clima con OpenWeatherMap y búsquedas en Wikipedia.</li>
+              </ul>
+              <p class="stackline"><span>Tecnologías</span>Python · LangChain · RAG · OpenWeatherMap API</p>
               <p class="links"><a href="https://github.com/Ruben-arc3/Agente-Langchain-RAG" target="_blank" rel="noreferrer">Ver código<span class="sr"> (se abre en otra pestaña)</span></a></p>
             </div>
           </article>
 
-          <article class="project">
-            <div class="project-head">
-              <p class="kind">Backend</p>
-              <h3>JWT Auth API</h3>
-            </div>
-            <div class="project-body">
-              <p>API de autenticación con JSON Web Tokens: registro, inicio de sesión y acceso protegido, con persistencia en base de datos y tipado en TypeScript.</p>
-              <ul class="tags" aria-label="Tecnologías"><li>Node.js</li><li>Express</li><li>TypeScript</li><li>Sequelize</li><li>JWT</li></ul>
-              <p class="links"><a href="https://github.com/Ruben-arc3/JWT-Login-Node-Express-Sequelize-TypeScript" target="_blank" rel="noreferrer">Ver código<span class="sr"> (se abre en otra pestaña)</span></a></p>
-            </div>
-          </article>
+          <article class="project showcase" role="tabpanel" id="panel-raices" aria-labelledby="tab-raices">
+          <div class="project-head">
+            <p class="meta-row"><span class="badge">WEB</span><span class="mode">GITHUB</span></p>
+            <h3>Raíces del Caribe</h3>
+            <p class="kind">Plataforma web · artesanías del Caribe colombiano</p>
+          </div>
+          <figure class="codecard">
+            <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>raices-del-caribe.flow</span></div>
+            <pre aria-label="Arquitectura: frontend con React y Vite, backend con Express y base de datos PostgreSQL."><span class="c-acc">$</span> raices-del-caribe
+  ├─ frontend ··· React + Vite
+  ├─ backend ···· Express + API
+  └─ datos ······ PostgreSQL
+<span class="c-acc">$</span> <span class="c-caret">_</span></pre>
+          </figure>
+          <div class="project-body">
+            <p class="pitch">Plataforma para descubrir y comprar artesanías del Caribe colombiano, conocer a sus creadores y explorar las historias y tradiciones detrás de cada pieza.</p>
+            <ul class="points">
+              <li><strong>Frontend:</strong> React, TypeScript, Vite y CSS.</li>
+              <li><strong>Backend:</strong> API en Node.js y Express con TypeScript.</li>
+              <li><strong>Base de datos:</strong> PostgreSQL, conectada con <strong>pg</strong>.</li>
+              <li><strong>Autenticación:</strong> tokens JWT y contraseñas protegidas con hash <strong>bcrypt</strong>.</li>
+            </ul>
+            <p class="stackline"><span>Tecnologías</span>React · TypeScript · Vite · CSS · Node.js · Express · PostgreSQL · JWT · bcrypt</p>
+            <p class="links"><a href="https://github.com/Ruben-arc3/raices-del-caribe" target="_blank" rel="noreferrer">Ver código<span class="sr"> (se abre en otra pestaña)</span></a></p>
+          </div>
+        </article>
+
+        <article class="project showcase" role="tabpanel" id="panel-procuraduria" aria-labelledby="tab-procuraduria">
+          <div class="project-head">
+            <p class="meta-row"><span class="badge">HERRAMIENTA</span><span class="mode">PARA ESTUDIAR</span></p>
+            <h3>Procuraduría</h3>
+            <p class="kind">Herramienta de estudio · exámenes CNSC</p>
+          </div>
+          <figure class="codecard">
+            <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>procuraduria.flow</span></div>
+            <pre aria-label="Procuraduría: herramienta para estudiar de cara a los exámenes de la CNSC."><span class="c-acc">$</span> procuraduría
+  ├─ objetivo ··· exámenes CNSC
+  └─ uso ········ estudiar
+<span class="c-acc">$</span> <span class="c-caret">_</span></pre>
+          </figure>
+          <div class="project-body">
+            <p class="pitch">Herramienta que hice para estudiar y prepararme para los exámenes de la CNSC (Comisión Nacional del Servicio Civil), enfocada en el concurso de la Procuraduría.</p>
+            <ul class="points">
+              <li><strong>Propósito:</strong> tener a mano el material y la práctica para estudiar con un objetivo claro: aprobar el examen.</li>
+            </ul>
+            <!-- EDITA: tecnologías del proyecto
+            <p class="stackline"><span>Tecnologías</span>… · … · …</p> -->
+            <!-- EDITA: enlaces del proyecto
+            <p class="links"><a href="https://…" target="_blank" rel="noreferrer">Ver código<span class="sr"> (se abre en otra pestaña)</span></a></p> -->
+          </div>
+        </article>
         </div>
 
         <p class="more">¿Quieres ver más? <a href="https://github.com/Ruben-arc3?tab=repositories" target="_blank" rel="noreferrer">Todos mis repositorios en GitHub<span class="sr"> (se abre en otra pestaña)</span></a></p>
@@ -209,5 +350,15 @@
       <p class="social"><a href="https://github.com/Ruben-arc3" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/ruben-mora-9427a6398/" target="_blank" rel="noreferrer">LinkedIn</a><a href="mailto:ingrubenmora76@gmail.com">Correo</a></p>
       <a href="#inicio">Volver arriba</a>
     </footer>
+
+    <dialog class="lightbox" id="lightbox" aria-label="Galería de imágenes">
+      <figure>
+        <img alt="" />
+        <figcaption><span class="lb-caption"></span><span class="lb-count"></span></figcaption>
+      </figure>
+      <button class="lb-btn lb-close" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <button class="lb-btn lb-prev" type="button" aria-label="Imagen anterior"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="lb-btn lb-next" type="button" aria-label="Imagen siguiente"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </dialog>
   </body>
 </html>
