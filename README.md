@@ -1,29 +1,67 @@
-# Portafolio web de Rubén Mora
+# Mi Portafolio
 
-Sitio estático independiente, listo para Cloudflare Pages. No modifica el sitio Decido Cuidarme que se publica desde `outputs/`.
+Portafolio personal de **Rubén Mora Martínez**, ingeniero de sistemas y desarrollador de software. Es un sitio estático con tema oscuro, fondo animado de estilo tecnológico y datos en vivo desde GitHub.
 
-## Publicar en Cloudflare Pages
+## Qué incluye
 
-### Con GitHub
+- **Inicio** con titular dinámico y una terminal con mis datos.
+- **Proyectos** destacados con sus tecnologías y enlaces.
+- **GitHub en vivo:** los repositorios más recientes se cargan desde la API pública de GitHub.
+- **Experiencia y formación** en líneas de tiempo.
+- **Sobre mí** con el stack tecnológico.
+- **Contacto** con correo (botón para copiarlo), LinkedIn, GitHub y descarga del CV en PDF.
+- Tema claro y oscuro, que recuerda la elección y respeta la del sistema.
+- Fondo de lluvia de código, cinta de tecnologías y barra de progreso de lectura.
+- Accesible: navegación por teclado, enlace para saltar al contenido y respeto a "reducir movimiento".
 
-1. Crea un proyecto de Pages conectado a este repositorio.
-2. En la configuración del proyecto establece `portfolio-site` como directorio raíz.
-3. Deja vacío el comando de compilación y establece `public` como directorio de salida.
-4. Despliega la rama principal.
+## Tecnologías
 
-### Con Wrangler
+HTML, CSS y JavaScript puros, sin frameworks ni pasos de compilación. Fuentes de Google Fonts (Bricolage Grotesque y Public Sans) e íconos de [Devicon](https://devicon.dev/).
 
-Desde esta carpeta ejecuta:
+## Estructura
 
-```bash
-npx wrangler pages deploy public --project-name ruben-mora-portfolio
+```
+Mi-Portafolio/
+├── index.html                    # Contenido y estructura
+├── styles.css                    # Estilos y animaciones
+├── app.js                        # Interacciones, fondo animado y GitHub en vivo
+├── favicon.svg                   # Ícono de la pestaña
+├── CV-Ruben-Mora-Martinez.pdf    # Hoja de vida descargable
+└── README.md
 ```
 
-No requiere instalación de dependencias ni compilación. Bootstrap y GSAP se cargan desde jsDelivr; la imagen abstracta de portada y las tipografías se cargan desde Unsplash y Google Fonts.
+## Ejecutarlo en local
 
-## Personalización
+No necesita instalación. Clona el repositorio y abre `index.html` en el navegador:
 
-- Edita los proyectos, enlaces y textos en `public/index.html`.
-- Cambia colores, diseño y ajustes responsive en `public/styles.css`.
-- Las animaciones, el filtro de proyectos y el menú móvil están en `public/app.js`.
-- El background de portada es una imagen de Conny Schneider en Unsplash; el enlace de crédito está en el pie de página.
+```bash
+git clone https://github.com/Ruben-arc3/Mi-Portafolio.git
+cd Mi-Portafolio
+```
+
+Si prefieres un servidor local:
+
+```bash
+python -m http.server 8000
+```
+
+y entra a `http://localhost:8000`.
+
+## Publicarlo
+
+Al ser un sitio estático funciona en Cloudflare Pages, GitHub Pages o Netlify. En Cloudflare Pages basta con conectar este repositorio, dejar el comando de compilación vacío y usar la raíz (`/`) como carpeta de salida.
+
+## Personalizarlo
+
+- **Colores:** variables al inicio de `styles.css` (`--bg`, `--accent`, etc.).
+- **Frases del titular:** lista `phrases` en `app.js`.
+- **Usuario de GitHub:** variable `user` en `app.js`.
+- **CV:** reemplaza `CV-Ruben-Mora-Martinez.pdf` conservando el nombre.
+
+## Contacto
+
+- Correo: ingrubenmora76@gmail.com
+- LinkedIn: [ruben-mora](https://www.linkedin.com/in/ruben-mora-9427a6398/)
+- GitHub: [@Ruben-arc3](https://github.com/Ruben-arc3)
+
+© Rubén Mora Martínez · Montería, Colombia
